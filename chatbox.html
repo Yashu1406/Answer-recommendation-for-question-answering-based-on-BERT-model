@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="/static/assets/css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <script type="text/javascript" src="/static/assets/js/jquery.js"></script>
+
+  <style>
+    .bg-cover {
+      background-image: url('/static/assets/images/Chatbot.png');
+      /* background-color: #808080;
+      background-blend-mode: luminosity; */
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+		
+    .goog-logo-link {
+        display: none !important;
+    }
+
+    .goog-te-gadget {
+        color: transparent !important;
+    }
+
+    .goog-te-banner-frame.skiptranslate {
+        display: none !important;
+    }
+
+    body {
+        top: 0px !important;
+    }  
+
+    .VIpgJd-ZVi9od-ORHb-OEVmcd {
+        display: none !important;
+    } 
+  </style>
+
+</head>
+
+<body>
+
+  <div class="min-vh-100 d-flex flex-column bg-cover">
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid w-100 d-flex justify-content-center">
+        <div class="row w-100">
+          <div class="col-md-4"></div>
+          <div class="col-md-4 text-center">
+            <a class="navbar-brand m-auto fs-4" href="#"><i class="fa-solid fa-robot"></i> Context-Based Answering</a>
+          </div>
+          <div class="col-md-4">
+
+          </div>
+        </div>
+      </div>
+    </nav>
+
+
+
+    <div class="container my-5">
+      <div class="card bg-white">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <div class="w-100 text-start">
+            <a href="#" class="text-dark text-decoration-none fs-5">Context-Based Answering <i class="fa-solid fa-terminal"></i><a> 
+          </div>
+          <div class="w-100 text-end">
+              <a href="index" class="btn btn-danger btn-sm shadow-none">Logout<a> 
+            </div>
+        </div>
+        <div class="card-body bg-black">
+          <div class="container bg-black bg-opacity-25">
+            <div id="chatbox" class="mx-auto">
+              <p class="botText"><span>Hi There!</span></p>
+              <p class="botText"><span>Hi There! You can begin conversation by typing in a message and pressing enter
+                  </span></p>
+            </div>
+            <div id="userInput" class="mt-5 w-100 d-flex gap-3">
+              <input id="textInput" type="text" name="msg" placeholder="Message" class="form-control shadow-none">
+              <input id="buttonInput" type="submit" value="Send" class="btn btn-primary shadow-none">
+            </div>
+            <script>
+              function getBotResponse() {
+              debugger;
+                var rawText = $("#textInput").val();
+                var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
+                $("#textInput").val("");
+                $("#chatbox").append(userHtml);
+                document.getElementById('userInput').scrollIntoView({ block: 'start', behavior: 'smooth' });
+                $.get("/get", { msg: rawText }).done(function (data) {
+                  var botHtml = '<p class="botText"><span>' + data + '</span></p>';
+                  $("#chatbox").append(botHtml);
+                  document.getElementById('userInput').scrollIntoView({ block: 'start', behavior: 'smooth' });
+                });
+              }
+              $("#textInput").keypress(function (e) {
+                if (e.which == 13) {
+                  getBotResponse();
+                }
+              });
+              $("#buttonInput").click(function () {
+                getBotResponse();
+              })
+              
+            </script>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+		<div id="google_translate_element" style="position: fixed;bottom: 30px;right: 20px;z-index: 1000; "></div>
+  </div>
+	<script src="/static/assets/js/bootstrap.js"></script>
+
+    <script type="text/javascript">
+	function googleTranslateElementInit() {
+          new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'en,kn' // en for English, kn for Kannada
+          }, 'google_translate_element');
+        }
+	</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+
+</html>
